@@ -31,6 +31,7 @@
 -- no need to ensure that constructor names are unique, nor to pollute the
 -- precious constructor namespace in a large module with many flags.
 
+{-# LANGUAGE CPP #-}
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE MagicHash #-}
@@ -38,7 +39,9 @@
 {-# LANGUAGE PatternSynonyms #-}
 {-# LANGUAGE TypeFamilies #-}
 
+#if __GLASGOW_HASKELL__ >= 800
 {-# OPTIONS_GHC -fno-warn-missing-pattern-synonym-signatures #-}
+#endif
 
 module Data.Choice
   ( Choice
@@ -57,7 +60,9 @@ module Data.Choice
   , Label(..)
   ) where
 
+#if MIN_VERSION_base(4,9,0)
 import GHC.OverloadedLabels (IsLabel(..))
+#endif
 import GHC.TypeLits (Symbol)
 
 -- $label-export
@@ -68,8 +73,10 @@ import GHC.TypeLits (Symbol)
 -- | A synonym for 'Data.Proxy.Proxy'.
 data Label (a :: Symbol) = Label deriving (Eq, Ord, Show)
 
+#if MIN_VERSION_base(4,9,0)
 instance x ~ x' => IsLabel x (Label x') where
   fromLabel _ = Label
+#endif
 
 -- | A labeled boolean choice.
 data Choice (a :: Symbol)
