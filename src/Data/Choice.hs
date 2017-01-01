@@ -33,6 +33,8 @@
 
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE DataKinds #-}
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
@@ -63,6 +65,8 @@ module Data.Choice
 #if MIN_VERSION_base(4,9,0)
 import GHC.OverloadedLabels (IsLabel(..))
 #endif
+import Data.Typeable (Typeable)
+import GHC.Generics (Generic)
 import GHC.TypeLits (Symbol)
 
 -- $label-export
@@ -82,10 +86,22 @@ instance x ~ x' => IsLabel x (Label x') where
 data Choice (a :: Symbol)
   = Off {-# UNPACK #-} !(Label a)
   | On {-# UNPACK #-} !(Label a)
-  deriving (Eq, Ord)
+  deriving (Eq, Ord, Generic, Typeable)
 
 instance Show (Choice a) where
   show x = "fromBool " ++ show (toBool x)
+
+instance Enum (Choice a) where
+  toEnum 0 = Off Label
+  toEnum 1 = On Label
+  toEnum _ = error "Prelude.Enum.Choice.toEnum: bad argument"
+
+  fromEnum (Off _) = 0
+  fromEnum (On _) = 1
+
+instance Bounded (Choice a) where
+  minBound = Off Label
+  maxBound = On Label
 
 -- | Alias for 'True', e.g. @Do #block@.
 pattern Do x = On x
@@ -104,18 +120,6 @@ pattern With x = On x
 
 -- | Alias for 'False', e.g. @Without #ownDirectory@.
 pattern Without x = Off x
-
-instance Enum (Choice a) where
-  toEnum 0 = Off Label
-  toEnum 1 = On Label
-  toEnum _ = error "Prelude.Enum.Choice.toEnum: bad argument"
-
-  fromEnum (Off _) = 0
-  fromEnum (On _) = 1
-
-instance Bounded (Choice a) where
-  minBound = Off Label
-  maxBound = On Label
 
 toBool :: Choice a -> Bool
 toBool (Off _) = False
