@@ -77,7 +77,10 @@ import GHC.TypeLits (Symbol)
 -- | A synonym for 'Data.Proxy.Proxy'.
 data Label (a :: Symbol) = Label deriving (Eq, Ord, Show)
 
-#if MIN_VERSION_base(4,9,0)
+#if MIN_VERSION_base(4,10,0)
+instance x ~ x' => IsLabel x (Label x') where
+  fromLabel = Label
+#elif MIN_VERSION_base(4,9,0)
 instance x ~ x' => IsLabel x (Label x') where
   fromLabel _ = Label
 #endif
