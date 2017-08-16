@@ -11,7 +11,7 @@
 -- @
 -- {-\# LANGUAGE OverloadedLabels \#-}
 --
--- import Data.Choice (Choice, Do, Don't)
+-- import Data.Choice (Choice, pattern Do, pattern Don't)
 --
 -- -- Blocking read: block until N bytes available.
 -- -- Non-blocking: return as many bytes as are available.
