@@ -132,18 +132,17 @@ pattern Without x = Off x
 -- | Alias for 'True', e.g. @Must #succeed@.
 pattern Must x = On x
 
--- | Alias for 'False', e.g. @Musnt't #succeed@.
+-- | Alias for 'False', e.g. @Mustn't #succeed@.
 pattern Mustn't x = Off x
 
-  -- | Alias for 'False', e.g. @Needn't #succeed@.
+-- | Alias for 'False', e.g. @Needn't #succeed@.
 pattern Needn't x = Off x
 
-  -- | Alias for 'True', e.g. @Can #fail@.
+-- | Alias for 'True', e.g. @Can #fail@.
 pattern Can x = On x
 
 -- | Alias for 'False', e.g. @Can't #fail@.
 pattern Can't x = Off x
-
 
 toBool :: Choice a -> Bool
 toBool (Off _) = False
