@@ -50,6 +50,7 @@ module Data.Choice
   -- * Conversion
   , fromBool
   , toBool
+  , choice
   -- * Choice aliases
   , pattern Do
   , pattern Don't
@@ -185,3 +186,11 @@ toBool (On _) = True
 fromBool :: Bool -> Choice a
 fromBool False = Off Label
 fromBool True = On Label
+
+-- | Case analysis for the 'Choice' type. @choice x y p@ evaluates to @x@ when
+-- @p@ is false, and evaluates to @y@ when @p@ is true.
+--
+-- This is equivalent to @'Data.Bool.bool' x y ('toBool' p)@.
+choice :: a -> a -> Choice b -> a
+choice x _ (Off _) = x
+choice _ y (On _) = y
