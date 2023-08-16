@@ -1,6 +1,5 @@
 # Choice: a solution to boolean blindness
 
-[![Build Status](https://travis-ci.org/mboes/choice.svg?branch=master)](https://travis-ci.org/mboes/choice)
 [![choice on Stackage LTS](http://stackage.org/package/choice/badge/lts)](http://stackage.org/lts/package/choice)
 [![choice on Stackage Nightly](http://stackage.org/package/choice/badge/nightly)](http://stackage.org/nightly/package/choice)
 
