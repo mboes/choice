@@ -112,27 +112,35 @@ instance Bounded (Choice a) where
   maxBound = On Label
 
 -- | Alias for 'True', e.g. @Do #block@.
+pattern Do :: Label a -> Choice a
 pattern Do x = On x
 
 -- | Alias for 'False', e.g. @Don't #block@.
+pattern Don't :: Label a -> Choice a
 pattern Don't x = Off x
 
 -- | Alias for 'True', e.g. @Is #ordered@.
+pattern Is :: Label a -> Choice a
 pattern Is x = On x
 
 -- | Alias for 'False', e.g. @Isn't #ordered@.
+pattern Isn't :: Label a -> Choice a
 pattern Isn't x = Off x
 
 -- | Alias for 'True', e.g. @With #ownDirectory@.
+pattern With :: Label a -> Choice a
 pattern With x = On x
 
 -- | Alias for 'False', e.g. @Without #ownDirectory@.
+pattern Without :: Label a -> Choice a
 pattern Without x = Off x
 
 -- | Alias for 'True', e.g. @Must #succeed@.
+pattern Must :: Label a -> Choice a
 pattern Must x = On x
 
 -- | Alias for 'False', e.g. @Mustn't #succeed@.
+pattern Mustn't :: Label a -> Choice a
 pattern Mustn't x = Off x
 
 -- | Alias for 'False', e.g. @Needn't #succeed@.
@@ -141,9 +149,11 @@ pattern Needn't x = Off x
 {-# DEPRECATED Needn't "Use Can or Can't." #-}
 
 -- | Alias for 'True', e.g. @Can #fail@.
+pattern Can :: Label a -> Choice a
 pattern Can x = On x
 
 -- | Alias for 'False', e.g. @Can't #fail@.
+pattern Can't :: Label a -> Choice a
 pattern Can't x = Off x
 
 toBool :: Choice a -> Bool
