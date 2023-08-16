@@ -138,6 +138,8 @@ pattern Mustn't x = Off x
 -- | Alias for 'False', e.g. @Needn't #succeed@.
 pattern Needn't x = Off x
 
+{-# DEPRECATED Needn't "Use Can or Can't." #-}
+
 -- | Alias for 'True', e.g. @Can #fail@.
 pattern Can x = On x
 
