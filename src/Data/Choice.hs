@@ -62,6 +62,8 @@ module Data.Choice
   , pattern Needn't
   , pattern Can
   , pattern Can't
+  , pattern Should
+  , pattern Shouldn't
   -- * Internal
   -- $label-export
   , Label(..)
@@ -165,6 +167,16 @@ pattern Can't :: Label a -> Choice a
 pattern Can't x = Off x
 
 {-# COMPLETE Can, Can't #-}
+
+-- | Alias for 'True', e.g. @Should #succeed@.
+pattern Should :: Label a -> Choice a
+pattern Should x = On x
+
+-- | Alias for 'False', e.g. @Shouldn't #succeed@.
+pattern Shouldn't :: Label a -> Choice a
+pattern Shouldn't x = Off x
+
+{-# COMPLETE Should, Shouldn't #-}
 
 toBool :: Choice a -> Bool
 toBool (Off _) = False
