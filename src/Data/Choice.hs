@@ -119,6 +119,8 @@ pattern Do x = On x
 pattern Don't :: Label a -> Choice a
 pattern Don't x = Off x
 
+{-# COMPLETE Do, Don't #-}
+
 -- | Alias for 'True', e.g. @Is #ordered@.
 pattern Is :: Label a -> Choice a
 pattern Is x = On x
@@ -126,6 +128,8 @@ pattern Is x = On x
 -- | Alias for 'False', e.g. @Isn't #ordered@.
 pattern Isn't :: Label a -> Choice a
 pattern Isn't x = Off x
+
+{-# COMPLETE Is, Isn't #-}
 
 -- | Alias for 'True', e.g. @With #ownDirectory@.
 pattern With :: Label a -> Choice a
@@ -135,6 +139,8 @@ pattern With x = On x
 pattern Without :: Label a -> Choice a
 pattern Without x = Off x
 
+{-# COMPLETE With, Without #-}
+
 -- | Alias for 'True', e.g. @Must #succeed@.
 pattern Must :: Label a -> Choice a
 pattern Must x = On x
@@ -142,6 +148,8 @@ pattern Must x = On x
 -- | Alias for 'False', e.g. @Mustn't #succeed@.
 pattern Mustn't :: Label a -> Choice a
 pattern Mustn't x = Off x
+
+{-# COMPLETE Must, Mustn't #-}
 
 -- | Alias for 'False', e.g. @Needn't #succeed@.
 pattern Needn't x = Off x
@@ -155,6 +163,8 @@ pattern Can x = On x
 -- | Alias for 'False', e.g. @Can't #fail@.
 pattern Can't :: Label a -> Choice a
 pattern Can't x = Off x
+
+{-# COMPLETE Can, Can't #-}
 
 toBool :: Choice a -> Bool
 toBool (Off _) = False
