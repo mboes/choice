@@ -40,6 +40,7 @@
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE PatternSynonyms #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
 
 #if __GLASGOW_HASKELL__ >= 800
 {-# OPTIONS_GHC -fno-warn-missing-pattern-synonym-signatures #-}
@@ -50,6 +51,7 @@ module Data.Choice
   -- * Conversion
   , fromBool
   , toBool
+  , choice
   -- * Choice aliases
   , pattern Do
   , pattern Don't
@@ -62,6 +64,8 @@ module Data.Choice
   , pattern Needn't
   , pattern Can
   , pattern Can't
+  , pattern Should
+  , pattern Shouldn't
   -- * Internal
   -- $label-export
   , Label(..)
@@ -112,37 +116,69 @@ instance Bounded (Choice a) where
   maxBound = On Label
 
 -- | Alias for 'True', e.g. @Do #block@.
+pattern Do :: Label a -> Choice a
 pattern Do x = On x
 
 -- | Alias for 'False', e.g. @Don't #block@.
+pattern Don't :: Label a -> Choice a
 pattern Don't x = Off x
 
+{-# COMPLETE Do, Don't #-}
+
 -- | Alias for 'True', e.g. @Is #ordered@.
+pattern Is :: Label a -> Choice a
 pattern Is x = On x
 
 -- | Alias for 'False', e.g. @Isn't #ordered@.
+pattern Isn't :: Label a -> Choice a
 pattern Isn't x = Off x
 
+{-# COMPLETE Is, Isn't #-}
+
 -- | Alias for 'True', e.g. @With #ownDirectory@.
+pattern With :: Label a -> Choice a
 pattern With x = On x
 
 -- | Alias for 'False', e.g. @Without #ownDirectory@.
+pattern Without :: Label a -> Choice a
 pattern Without x = Off x
 
+{-# COMPLETE With, Without #-}
+
 -- | Alias for 'True', e.g. @Must #succeed@.
+pattern Must :: Label a -> Choice a
 pattern Must x = On x
 
 -- | Alias for 'False', e.g. @Mustn't #succeed@.
+pattern Mustn't :: Label a -> Choice a
 pattern Mustn't x = Off x
+
+{-# COMPLETE Must, Mustn't #-}
 
 -- | Alias for 'False', e.g. @Needn't #succeed@.
 pattern Needn't x = Off x
 
+{-# DEPRECATED Needn't "Use Can or Can't." #-}
+
 -- | Alias for 'True', e.g. @Can #fail@.
+pattern Can :: Label a -> Choice a
 pattern Can x = On x
 
 -- | Alias for 'False', e.g. @Can't #fail@.
+pattern Can't :: Label a -> Choice a
 pattern Can't x = Off x
+
+{-# COMPLETE Can, Can't #-}
+
+-- | Alias for 'True', e.g. @Should #succeed@.
+pattern Should :: Label a -> Choice a
+pattern Should x = On x
+
+-- | Alias for 'False', e.g. @Shouldn't #succeed@.
+pattern Shouldn't :: Label a -> Choice a
+pattern Shouldn't x = Off x
+
+{-# COMPLETE Should, Shouldn't #-}
 
 toBool :: Choice a -> Bool
 toBool (Off _) = False
@@ -151,3 +187,11 @@ toBool (On _) = True
 fromBool :: Bool -> Choice a
 fromBool False = Off Label
 fromBool True = On Label
+
+-- | Case analysis for the 'Choice' type. @choice x y p@ evaluates to @x@ when
+-- @p@ is false, and evaluates to @y@ when @p@ is true.
+--
+-- This is equivalent to @'Data.Bool.bool' x y ('toBool' p)@.
+choice :: a -> a -> Choice b -> a
+choice x _ (Off _) = x
+choice _ y (On _) = y
