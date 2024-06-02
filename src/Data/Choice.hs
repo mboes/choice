@@ -190,6 +190,14 @@ fromBool :: Bool -> Choice a
 fromBool False = Off Label
 fromBool True = On Label
 
+isTrue :: Choice a -> Bool
+isTrue (Off _) = False
+isTrue (On _) = True
+
+isFalse :: Choice a -> Bool
+isFalse (Off _) = True
+isFalse (On _) = False
+
 -- | Case analysis for the 'Choice' type. @choice x y p@ evaluates to @x@ when
 -- @p@ is false, and evaluates to @y@ when @p@ is true.
 --
