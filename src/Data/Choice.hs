@@ -9,7 +9,9 @@
 -- 'Choice' is the type of labeled booleans. Use it as follows:
 --
 -- @
+-- {-\# LANGUAGE DataKinds \#-}
 -- {-\# LANGUAGE OverloadedLabels \#-}
+-- {-\# LANGUAGE PatternSynonyms \#-}
 --
 -- import Data.Choice (Choice, pattern Do, pattern Don't)
 --
