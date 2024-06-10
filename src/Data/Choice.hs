@@ -53,6 +53,8 @@ module Data.Choice
   -- * Conversion
   , fromBool
   , toBool
+  , isFalse
+  , isTrue
   , choice
   -- * Choice aliases
   , pattern Do
