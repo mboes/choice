@@ -1,0 +1,3 @@
+packages: .
+package *
+  ghc-options: -Wall -Werror
