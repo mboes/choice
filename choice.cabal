@@ -3,7 +3,7 @@ version:             0.2.4
 synopsis:            A solution to boolean blindness.
 description:         Please see README.md.
 homepage:            https://github.com/mboes/choice#readme
-license:             PublicDomain
+license:             BSD3
 author:              Mathieu Boespflug
 maintainer:          m@tweag.io
 category:            Data
