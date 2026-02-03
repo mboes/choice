@@ -1,15 +1,15 @@
+cabal-version:       3.0
 name:                choice
 version:             0.2.4
 synopsis:            A solution to boolean blindness.
 description:         Please see README.md.
 homepage:            https://github.com/mboes/choice#readme
-license:             BSD3
+license:             BSD-3-Clause
 author:              Mathieu Boespflug
 maintainer:          m@tweag.io
 category:            Data
 build-type:          Simple
 extra-source-files:  README.md
-cabal-version:       >=1.10
 
 library
   hs-source-dirs:      src
